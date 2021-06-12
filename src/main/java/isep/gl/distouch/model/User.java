@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Set;
 
 @Data
 @Builder
@@ -61,4 +62,10 @@ public class User {
     @Column(name = "country")
     @NotEmpty(message = "*Please provide your country name")
     private String country;
+
+    @ManyToMany
+    @JoinTable(name = "user_event",
+            joinColumns = @JoinColumn(name = "participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    Set<Event> events;
 }
