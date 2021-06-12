@@ -19,49 +19,7 @@
 </head>
 <body>
 <div class="container-sm">
-    <form th:action="@{/registration}" th:object="${user}" method="post">
-        <h2 class="text-center m-3">Registration Form</h2>
-        <div class="col-lg-6 offset-lg-3">
-            <div class="form-group">
-                <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control"
-                       th:classappend="${#fields.hasErrors('firstName')}?'is-invalid'" autofocus/>
-                <label th:errors="*{firstName}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control"
-                       th:classappend="${#fields.hasErrors('lastName')}?'is-invalid'"/>
-                <label th:errors="*{lastName}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="date" th:field="*{birthDate}" placeholder="Birth Date" class="form-control"
-                       th:classappend="${#fields.hasErrors('birthDate')}?'is-invalid'" autocomplete="bday"/>
-                <label th:errors="*{birthDate}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="text" th:field="*{city}" placeholder="City" class="form-control"
-                       th:classappend="${#fields.hasErrors('city')}?'is-invalid'"/>
-                <label th:errors="*{city}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="text" th:field="*{country}" placeholder="Country" class="form-control"
-                       th:classappend="${#fields.hasErrors('country')}?'is-invalid'"/>
-                <label th:errors="*{country}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="email" th:field="*{email}" placeholder="Email" class="form-control"
-                       th:classappend="${#fields.hasErrors('email')}?'is-invalid'"/>
-                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></label>
-            </div>
-            <div class="form-group">
-                <input type="password" th:field="*{password}" placeholder="Password" class="form-control"
-                       th:classappend="${#fields.hasErrors('password')}?'is-invalid'"/>
-                <label th:errors="*{password}" class="invalid-feedback"></label>
-            </div>
-        </div>
-        <div class="form-group col-lg-4 offset-lg-4">
-            <button type="submit" class="btn btn-primary btn-block">Register User</button>
-        </div>
-    </form>
+    <form th:replace="fragments/user::user-form(user=${user}, action=@{/registration})"></form>
     <div class="col-8 col-lg-2 offset-2 offset-lg-5">
         <a class="btn btn-md btn-warning btn-block" th:href="@{/login}">Login</a>
     </div>
