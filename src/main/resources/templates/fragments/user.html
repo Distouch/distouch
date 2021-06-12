@@ -7,7 +7,6 @@
 <body>
 <form th:fragment="user-form(user, action)" th:action="${action}" th:object="${user}" method="post">
     <!--/*@thymesVar id="user" type="isep.gl.distouch.model.User"*/-->
-    <h2 class="text-center m-3">Registration Form</h2>
     <div class="col-lg-6 offset-lg-3">
         <div class="form-group">
             <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control"
