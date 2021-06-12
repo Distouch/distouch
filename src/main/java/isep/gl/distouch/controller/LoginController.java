@@ -2,6 +2,7 @@ package isep.gl.distouch.controller;
 
 import isep.gl.distouch.model.User;
 import isep.gl.distouch.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,5 +60,23 @@ public class LoginController {
             return "redirect:/login";
         }
         return "/registration";
+    }
+
+    @GetMapping("/profile")
+    public String profilePage(Model model) {
+        model.addAttribute("user", userService.getCurrentUser());
+        return "/profile";
+    }
+
+    @PostMapping("/profile")
+    public String editUser(@Valid User editedUser, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            User currentUser = userService.getCurrentUser();
+            BeanUtils.copyProperties(editedUser, currentUser, "id");
+            userService.saveUser(currentUser);
+            model.addAttribute("message", "Successfully updated profile");
+            model.addAttribute("messageType", "success");
+        }
+        return "/profile";
     }
 }
