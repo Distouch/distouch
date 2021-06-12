@@ -31,7 +31,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/") //TODO probably default
                 .failureUrl("/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")
