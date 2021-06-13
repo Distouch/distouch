@@ -1,8 +1,19 @@
 html, body {
     height: 100%;
+    font-family: 'Roboto', sans-serif;
 }
 
-body {
-    display: flex;
-    align-items: center;
+header {
+    height: 10%;
+    z-index: 999;
+    position: relative;
+}
+
+#main-container {
+    height: 80%;
+    overflow-y: auto;
+}
+
+footer {
+    height: 10%;
 }
