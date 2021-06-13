@@ -10,7 +10,7 @@
 <div id="main-container" class="container-sm">
     <form th:action="@{/login}" method="POST">
         <h2 class="text-center m-3">Login</h2>
-        <div class="col-lg-6 offset-lg-3">
+        <div class="col-sm-8 offset-sm-2">
             <div class="form-group">
                 <input type="text" id="email" name="email" placeholder="Email" class="form-control" autofocus/>
             </div>
@@ -18,11 +18,11 @@
                 <input type="password" th:placeholder="Password" id="password" name="password" class="form-control"/>
             </div>
         </div>
-        <div class="form-group col-lg-4 offset-lg-4">
+        <div class="form-group col-sm-4 offset-sm-4">
             <button type="submit" class="btn btn-primary btn-block">Login</button>
         </div>
     </form>
-    <div class="col-8 col-lg-2 offset-2 offset-lg-5">
+    <div class="col-8 col-sm-2 offset-2 offset-sm-5">
         <a class="btn btn-md btn-warning btn-block" th:href="@{/registration}">Register</a>
     </div>
 </div>
