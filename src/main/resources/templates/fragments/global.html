@@ -5,11 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+<header th:fragment="header" class="bg-primary">
+
+</header>
+
 <!--/*@thymesVar id="message" type="java.lang.String"*/-->
 <!--/*@thymesVar id="messageType" type="java.lang.String"*/-->
 <div th:fragment="message" th:if="${message!=null}" th:text="${message}" role="alert" class="alert"
      th:classappend="(${messageType=='error'}?'alert-danger':'')
                  + (${messageType=='success'}?'alert-success':'')">
 </div>
+
+<footer th:fragment="footer" class="bg-light">
+
+</footer>
 </body>
 </html>

@@ -18,9 +18,11 @@
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 <body>
-<div class="container-sm">
+<header th:replace="fragments/global::header"></header>
+<div id="main-container" class="container-sm">
     <h2 class="text-center m-3">Profile</h2>
     <form th:replace="fragments/user::user-form(user=${user}, action=@{/profile})"></form>
 </div>
+<footer th:replace="fragments/global::footer"></footer>
 </body>
 </html>

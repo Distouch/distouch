@@ -2,7 +2,15 @@ html, body {
     height: 100%;
 }
 
-body {
-    display: flex;
-    align-items: center;
+header {
+    height: 10%;
+}
+
+#main-container {
+    height: 80%;
+    overflow-y: auto;
+}
+
+footer {
+    height: 10%;
 }
