@@ -8,7 +8,7 @@
 <div id="main-container" class="container-sm">
     <h2 class="text-center m-3">Registration</h2>
     <form th:replace="fragments/user::user-form(user=${user}, action=@{/registration})"></form>
-    <div class="col-8 col-lg-2 offset-2 offset-lg-5">
+    <div class="col-8 col-sm-2 offset-2 offset-sm-5">
         <a class="btn btn-md btn-warning btn-block" th:href="@{/login}">Login</a>
     </div>
 </div>

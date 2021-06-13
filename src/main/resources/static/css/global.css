@@ -11,6 +11,7 @@ header {
 
 #main-container {
     height: 80%;
+    padding-top: 3%;
     overflow-y: auto;
 }
 
