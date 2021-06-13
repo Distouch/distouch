@@ -52,7 +52,11 @@
 </div>
 
 <footer th:fragment="footer" class="bg-light">
-
+    <div class="d-flex align-items-center h-100">
+        <a class="col text-center" th:href="@{/feed}"><i class="fas fa-lg fa-bars text-dark"></i></a>
+        <a class="col text-center" th:href="@{'#'}"><i class="fas fa-lg fa-calendar text-dark"></i></a>
+        <a class="col text-center" th:href="@{'#'}"><i class="fas fa-lg fa-user-friends text-dark"></i></a>
+    </div>
 </footer>
 </body>
 </html>
