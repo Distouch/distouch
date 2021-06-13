@@ -5,6 +5,8 @@ html, body {
 
 header {
     height: 10%;
+    z-index: 999;
+    position: relative;
 }
 
 #main-container {

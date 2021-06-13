@@ -18,20 +18,37 @@
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/colors.css}">
+    <script type="text/javascript" th:src="@{/js/global.js}"></script>
 </head>
 <body>
 <header th:fragment="header" class="bg-primary">
-
+    <div class="d-flex align-items-center h-100">
+        <div class="col-3 text-center">
+            <a href="#"><i class="fas fa-lg fa-search text-dark"></i></a>
+        </div>
+        <div class="col-6 text-center">
+            <h2 class="font-italic">Distouch</h2>
+        </div>
+        <div class="col-3 d-flex justify-content-end">
+            <a href="#"><i class="fas fa-lg fa-bell text-dark pl-3"></i></a>
+            <a th:href="@{/profile}"><i class="fas fa-lg fa-user-circle text-dark pl-3"></i></a>
+        </div>
+    </div>
+    <div th:replace="fragments/global::messages"></div>
 </header>
 
-<!--/*@thymesVar id="message" type="java.lang.String"*/-->
-<!--/*@thymesVar id="messageType" type="java.lang.String"*/-->
-<div th:fragment="message" th:if="${message!=null}" th:text="${message}" role="alert" class="alert"
-     th:classappend="(${messageType=='error'}?'alert-danger':'')
-                 + (${messageType=='success'}?'alert-success':'')">
+<!--/*@thymesVar id="messages" type="java.util.List"*/-->
+<div th:fragment="messages" th:unless="${messages.isEmpty()}" aria-live="polite" aria-atomic="true">
+    <!--/*@thymesVar id="message" type="isep.gl.distouch.constants.MESSAGE"*/-->
+    <div th:each="message:${messages}" th:object="${message}" class="toast m-0" data-delay="5000"
+         aria-atomic="true" role="alert" aria-live="assertive" style="max-width: none!important;"
+         th:classappend="(*{type==type.ERROR}?'alert-danger':'')+(*{type==type.SUCCESS}?'alert-success':'')
+             +(*{type==type.WARNING}?'alert-warning':'')+(*{type==type.INFO}?'alert-info':'')">
+        <div class="toast-body text-center" th:text="*{content}"></div>
+    </div>
 </div>
 
 <footer th:fragment="footer" class="bg-light">

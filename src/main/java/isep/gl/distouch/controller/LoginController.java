@@ -1,5 +1,6 @@
 package isep.gl.distouch.controller;
 
+import isep.gl.distouch.constants.MESSAGE;
 import isep.gl.distouch.model.User;
 import isep.gl.distouch.service.UserService;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -21,21 +24,15 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("/login")
-    public String loginPage(Model model,
+    public String loginPage(RedirectAttributes redirectAttributes,
                             @RequestParam(value = "logout", required = false) boolean logout,
-                            @RequestParam(value = "error", required = false) boolean error,
-                            @RequestParam(value = "registered", required = false) boolean registered) {
-        if (error) {
-            model.addAttribute("message", "Invalid username or password");
-            model.addAttribute("messageType", "error");
-        }
-        if (logout) {
-            model.addAttribute("message", "Successfully logged out");
-            model.addAttribute("messageType", "success");
-        }
-        if (registered) {
-            model.addAttribute("message", "Successfully registered");
-            model.addAttribute("messageType", "success");
+                            @RequestParam(value = "error", required = false) boolean error) {
+        List<String> messages = new ArrayList<>(List.of());
+        if (error) messages.add(MESSAGE.LOGIN_FAIL.name());
+        if (logout) messages.add(MESSAGE.LOGOUT_SUCCESS.name());
+        if (error || logout) {
+            redirectAttributes.addFlashAttribute("messageId", messages);
+            return "redirect:/login";
         }
         return "login";
     }
@@ -56,7 +53,7 @@ public class LoginController {
         }
         if (!bindingResult.hasErrors()) {
             userService.saveUser(user);
-            redirectAttributes.addAttribute("registered", true);
+            redirectAttributes.addFlashAttribute("messageId", MESSAGE.REGISTRATION_SUCCESS);
             return "redirect:/login";
         }
         return "/registration";
@@ -69,13 +66,13 @@ public class LoginController {
     }
 
     @PostMapping("/profile")
-    public String editUser(@Valid User editedUser, BindingResult bindingResult, Model model) {
+    public String editUser(@Valid User editedUser, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
             User currentUser = userService.getCurrentUser();
             BeanUtils.copyProperties(editedUser, currentUser, "id");
             userService.saveUser(currentUser);
-            model.addAttribute("message", "Successfully updated profile");
-            model.addAttribute("messageType", "success");
+            redirectAttributes.addFlashAttribute("messageId", MESSAGE.PROFILE_UPDATE_SUCCESS);
+            return "redirect:/profile"; //prevents form reload
         }
         return "/profile";
     }
