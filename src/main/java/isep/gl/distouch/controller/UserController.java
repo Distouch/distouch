@@ -2,6 +2,7 @@ package isep.gl.distouch.controller;
 
 import isep.gl.distouch.constants.MESSAGE;
 import isep.gl.distouch.model.User;
+import isep.gl.distouch.repository.UserRepository;
 import isep.gl.distouch.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-public class LoginController {
+public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/login")
     public String loginPage(RedirectAttributes redirectAttributes,
@@ -34,19 +38,19 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("messageId", messages);
             return "redirect:/login";
         }
-        return "login";
+        return "/users/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage(Model model) {
         model.addAttribute("user", new User());
-        return "/registration";
+        return "/users/registration";
     }
 
     @PostMapping("/registration")
     public String registerUser(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        User userExists = userService.findUserByEmail(user.getEmail());
-        if (userExists != null) {
+        Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+        if (existingUser.isPresent()) {
             bindingResult
                     .rejectValue("email", "error.user",
                             "There is already a user registered with the email provided");
@@ -56,13 +60,13 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.REGISTRATION_SUCCESS);
             return "redirect:/login";
         }
-        return "/registration";
+        return "/users/registration";
     }
 
     @GetMapping("/profile")
     public String profilePage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "/profile";
+        return "/users/profile";
     }
 
     @PostMapping("/profile")
@@ -74,6 +78,6 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.PROFILE_UPDATE_SUCCESS);
             return "redirect:/profile"; //prevents form reload
         }
-        return "/profile";
+        return "/users/profile";
     }
 }

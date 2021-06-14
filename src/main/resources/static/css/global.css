@@ -18,3 +18,13 @@ header {
 footer {
     height: 10%;
 }
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.img-responsive {
+    max-height: 100%;
+    width: auto;
+}
