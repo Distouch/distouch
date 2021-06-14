@@ -1,7 +1,9 @@
 package isep.gl.distouch.controller;
 
 import isep.gl.distouch.model.Event;
+import isep.gl.distouch.model.User;
 import isep.gl.distouch.repository.EventRepository;
+import isep.gl.distouch.service.UserService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.io.InputStream;
 public class EventController {
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/feed")
     public String feed(Model model) {
@@ -28,6 +32,15 @@ public class EventController {
         return "/events/feed";
     }
 
+    @GetMapping("/view/{event}")
+    public String eventPage(Model model, @PathVariable Event event) {
+        User currentUser = userService.getCurrentUser();
+        model.addAttribute("event", event);
+        model.addAttribute("isOrganizer", (currentUser == event.getOrganizer()));
+        model.addAttribute("showAll", (event.getParticipants().contains(currentUser)));
+        return "/events/view";
+    }
+    
     @GetMapping("/image/{event}")
     public void showEventImage(@PathVariable Event event, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");

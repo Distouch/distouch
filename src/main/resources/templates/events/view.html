@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event</title>
+    <th:block th:include="fragments/global::head" th:tag="remove"></th:block>
+</head>
+<body>
+<header th:replace="fragments/global::header"></header>
+<div id="main-container" class="container-sm" th:object="${event}">
+    <h2 class="text-center m-3" th:text="*{title}"></h2>
+    <div style="height: 30%;text-align: center">
+        <img th:src="@{'/events/image/'+*{id}}" class="rounded img-responsive" alt="event image">
+    </div>
+    <div class="row my-4">
+        <div class="col-sm-6 text-left">
+            <div th:text="'Organizer: '+*{organizer.name}"></div>
+            <div th:text="'Date/heure: '+*{date + ' ' + time}"></div>
+        </div>
+        <div class="col-sm-6 text-right">
+            <div th:text="'Participants: '+*{participants.size}"></div>
+            <div th:text="*{address}" th:if="${showAll}"></div>
+            <div th:text="'Zone: '+*{zone}"></div>
+        </div>
+    </div>
+    <div th:if="${isOrganizer}" class="row">
+        <div class="form-group col-sm-4 offset-sm-1 col-md-2 offset-md-2">
+            <a class="btn btn-md btn-primary btn-block" th:href="@{'/events/edit/'+*{id}}">Edit</a>
+        </div>
+        <div class="form-group col-sm-4 offset-sm-2 col-md-2 offset-md-4">
+            <a class="btn btn-md btn-primary btn-block" th:href="'#'">Manage participants</a>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/global::footer"></footer>
+</body>
+</html>
