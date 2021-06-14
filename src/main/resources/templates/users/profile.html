@@ -8,6 +8,9 @@
 <div id="main-container" class="container-sm">
     <h2 class="text-center m-3">Profile</h2>
     <form th:replace="fragments/user::user-form(user=${user}, action=@{/profile})"></form>
+    <div class="col-8 col-sm-2 offset-2 offset-sm-5">
+        <a class="btn btn-md btn-secondary btn-block" th:href="@{/logout}">Logout</a>
+    </div>
 </div>
 <footer th:replace="fragments/global::footer"></footer>
 </body>
