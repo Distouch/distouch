@@ -73,6 +73,24 @@ public class EventController {
         model.addAttribute("showAll", (event.getParticipants().contains(currentUser)));
         return "/events/view";
     }
+
+    @GetMapping("/edit/{event}")
+    public String editEventPage(@PathVariable Event event, Model model) {
+        model.addAttribute("event", event);
+        return "/events/edit";
+    }
+
+    @PostMapping("/edit/{event}")
+    public String editEvent(@PathVariable Event event, @Valid Event editedEvent,
+                            BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (!bindingResult.hasErrors()) {
+            BeanUtils.copyProperties(editedEvent, event, "id");
+            eventRepository.save(event);
+            redirectAttributes.addFlashAttribute("messageId", MESSAGE.EVENT_UPDATE_SUCCESS);
+            return "redirect:/events/view/" + event.getId();
+        }
+        return "/events/edit";
+    }
     
     @GetMapping("/image/{event}")
     public void showEventImage(@PathVariable Event event, HttpServletResponse response) throws IOException {
