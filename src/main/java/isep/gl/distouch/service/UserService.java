@@ -17,7 +17,7 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).orElseThrow();
     }
 
     public User saveUser(User user) {
@@ -27,7 +27,7 @@ public class UserService {
 
     public User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findByEmail(userDetails.getUsername());
+        return findUserByEmail(userDetails.getUsername());
     }
 
     @Bean

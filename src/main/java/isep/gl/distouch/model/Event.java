@@ -9,7 +9,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 @Data
@@ -37,8 +38,12 @@ public class Event {
     private boolean isPublic;
 
     @Column(name = "date")
-    @NotNull(message = "*Please provide the confidentiality of the event")
-    private Date date;
+    @NotNull(message = "*Please provide the date of the event")
+    private LocalDate date;
+
+    @Column(name = "time")
+    @NotNull(message = "*Please provide the time of the event")
+    private LocalTime time;
 
     @Column(name = "address")
     @Length(min = 5, message = "*Your address must have at least 5 characters")
@@ -50,13 +55,21 @@ public class Event {
     private String city;
 
     @Column(name = "zip_code")
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
+    @Length(min = 5, message = "*Your zip code must have at least 5 characters")
     @NotNull(message = "*Please provide your Zip Code")
-    private int zipCode;
+    private String zipCode;
 
     @Column(name = "country")
     @NotEmpty(message = "*Please provide your country name")
     private String country;
+
+    public String getZone() {
+        return city + ", " + zipCode + ", " + country;
+    }
+
+    @Lob
+    @Column(name = "image", length = 100000)
+    private byte[] image;
 
     @ManyToMany
     @JoinTable(name = "user_event",

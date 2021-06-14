@@ -45,6 +45,10 @@ public class User {
     @NotEmpty(message = "*Please provide your last name")
     private String lastName;
 
+    public String getName() {
+        return firstName + " " + lastName;
+    }
+
     @Column(name = "birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "*Please provide your birth date")
