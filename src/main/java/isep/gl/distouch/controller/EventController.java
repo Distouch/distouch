@@ -91,7 +91,12 @@ public class EventController {
         }
         return "/events/edit";
     }
-    
+
+    @GetMapping("/calendar")
+    public String calendarPage() {
+        return "/events/calendar";
+    }
+
     @GetMapping("/image/{event}")
     public void showEventImage(@PathVariable Event event, HttpServletResponse response) throws IOException {
         response.setContentType("image/jpeg");

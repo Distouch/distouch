@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Friends</title>
+    <th:block th:include="fragments/global::head" th:tag="remove"></th:block>
+</head>
+<body>
+<header th:replace="fragments/global::header"></header>
+<div id="main-container" class="container-sm">
+  <div th:replace="fragments/global::in-progress"></div>
+</div>
+<footer th:replace="fragments/global::footer"></footer>
+</body>
+</html>
