@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event creation</title>
+    <th:block th:include="fragments/global::head" th:tag="remove"></th:block>
+</head>
+<body>
+<header th:replace="fragments/global::header"></header>
+<div id="main-container" class="container-sm">
+    <h2 class="text-center m-3">Event Creation</h2>
+    <form th:replace="fragments/event::event-form(${event}, @{/events/create})"></form>
+</div>
+<footer th:replace="fragments/global::footer"></footer>
+</body>
+</html>

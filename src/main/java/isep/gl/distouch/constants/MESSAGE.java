@@ -5,6 +5,8 @@ public enum MESSAGE {
     LOGIN_FAIL("Invalid username or password", MESSAGE_TYPES.ERROR),
     LOGOUT_SUCCESS("Successfully logged out", MESSAGE_TYPES.SUCCESS),
     PROFILE_UPDATE_SUCCESS("Successfully updated profile", MESSAGE_TYPES.SUCCESS),
+    EVENT_CREATION_SUCCESS("Successfully created event", MESSAGE_TYPES.SUCCESS),
+    EVENT_UPDATE_SUCCESS("Successfully updated event", MESSAGE_TYPES.SUCCESS),
     ;
 
     public String content;

@@ -80,4 +80,9 @@ public class UserController {
         }
         return "/users/profile";
     }
+
+    @RequestMapping("/friends")
+    public String friendsPage() {
+        return "/users/friends";
+    }
 }

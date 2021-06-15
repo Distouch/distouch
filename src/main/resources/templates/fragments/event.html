@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event fragments</title>
+</head>
+<body>
+<form th:fragment="event-form(event, action)" th:action="${action}" th:object="${event}" method="post"
+      enctype="multipart/form-data">
+    <!--/*@thymesVar id="event" type="isep.gl.distouch.model.Event"*/-->
+    <div class="col-sm-8 offset-sm-2">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="hidden" th:field="*{organizer}" readonly/>
+                <div class="form-group">
+                    <input type="text" th:field="*{title}" placeholder="Title" class="form-control"
+                           th:classappend="${#fields.hasErrors('title')}?'is-invalid'" autofocus/>
+                    <label th:errors="*{title}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group form-inline">
+                    <input type="date" th:field="*{date}" placeholder="Date" class="form-control col-6"
+                           th:classappend="${#fields.hasErrors('date')}?'is-invalid'"/>
+                    <input type="time" th:field="*{time}" placeholder="Time" class="form-control col-6"
+                           th:classappend="${#fields.hasErrors('time')}?'is-invalid'"/>
+                    <label th:errors="*{time}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group custom-file mb-3">
+                    <input type="file" th:field="*{image}" placeholder="Image" class="custom-file-input"
+                           th:classappend="${#fields.hasErrors('image')}?'is-invalid'"/>
+                    <label class="custom-file-label">Choose image</label>
+                    <label th:errors="*{image}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group form-check py-2">
+                    <input type="checkbox" th:field="*{public}" class="form-check-input"
+                           th:classappend="${#fields.hasErrors('public')}?'is-invalid'" checked/>
+                    <label class="form-check-label">Public</label>
+                    <label th:errors="*{public}" class="invalid-feedback"></label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" th:field="*{address}" placeholder="Address" class="form-control"
+                           th:classappend="${#fields.hasErrors('address')}?'is-invalid'"/>
+                    <label th:errors="*{address}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{city}" placeholder="City" class="form-control"
+                           th:classappend="${#fields.hasErrors('city')}?'is-invalid'"/>
+                    <label th:errors="*{city}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{zipCode}" placeholder="Zip Code" class="form-control"
+                           th:classappend="${#fields.hasErrors('zipCode')}?'is-invalid'"/>
+                    <label th:errors="*{zipCode}" class="invalid-feedback"></label>
+                </div>
+                <div class="form-group">
+                    <input type="text" th:field="*{country}" placeholder="Country" class="form-control"
+                           th:classappend="${#fields.hasErrors('country')}?'is-invalid'"/>
+                    <label th:errors="*{country}" class="invalid-feedback"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-sm-4 offset-sm-4">
+        <button type="submit" class="btn btn-primary btn-block">Send</button>
+    </div>
+</form>
+</body>
+</html>

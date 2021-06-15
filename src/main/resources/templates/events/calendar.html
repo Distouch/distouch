@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calendar</title>
+    <th:block th:include="fragments/global::head" th:tag="remove"></th:block>
+</head>
+<body>
+<header th:replace="fragments/global::header"></header>
+<div id="main-container" class="container-sm">
+    <div class="col-8 col-sm-2 offset-2 offset-sm-5">
+        <a class="btn btn-md btn-primary btn-block" th:href="@{/events/create}">Create an event</a>
+    </div>
+    <div th:replace="fragments/global::in-progress"></div>
+</div>
+<footer th:replace="fragments/global::footer"></footer>
+</body>
+</html>

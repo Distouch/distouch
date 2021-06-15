@@ -33,7 +33,7 @@
             <h2 class="font-italic mb-0 text-secondary">Distouch</h2>
         </div>
         <div class="col-3 d-flex justify-content-end">
-            <a href="#"><i class="fas fa-lg fa-bell text-dark pl-3"></i></a>
+            <a th:href="@{/notifications}"><i class="fas fa-lg fa-bell text-dark pl-3"></i></a>
             <a th:href="@{/profile}"><i class="fas fa-lg fa-user-circle text-dark pl-3"></i></a>
         </div>
     </div>
@@ -51,11 +51,19 @@
     </div>
 </div>
 
+<div th:fragment="in-progress" class="text-center mt-5">
+    <div>
+        <i class="fa fa-exclamation-triangle"></i>
+        Page in construction
+        <i class="fa fa-exclamation-triangle"></i>
+    </div>
+</div>
+
 <footer th:fragment="footer" class="bg-light">
     <div class="d-flex align-items-center h-100">
         <a class="col text-center" th:href="@{/events/feed}"><i class="fas fa-lg fa-bars text-dark"></i></a>
-        <a class="col text-center" th:href="@{'#'}"><i class="fas fa-lg fa-calendar text-dark"></i></a>
-        <a class="col text-center" th:href="@{'#'}"><i class="fas fa-lg fa-user-friends text-dark"></i></a>
+        <a class="col text-center" th:href="@{/events/calendar}"><i class="fas fa-lg fa-calendar text-dark"></i></a>
+        <a class="col text-center" th:href="@{/friends}"><i class="fas fa-lg fa-user-friends text-dark"></i></a>
     </div>
 </footer>
 </body>
