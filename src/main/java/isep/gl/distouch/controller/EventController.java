@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/events")
@@ -44,7 +45,7 @@ public class EventController {
         Event event = new Event();
         User currentUser = userService.getCurrentUser();
         event.setOrganizer(currentUser);
-        event.getParticipants().add(currentUser);
+        event.setParticipants(Set.of(currentUser));
         model.addAttribute("event", event);
         return "/events/create";
     }
