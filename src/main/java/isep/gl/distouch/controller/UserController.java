@@ -36,15 +36,15 @@ public class UserController {
         if (logout) messages.add(MESSAGE.LOGOUT_SUCCESS.name());
         if (error || logout) {
             redirectAttributes.addFlashAttribute("messageId", messages);
-            return "redirect:/login";
+            return "redirect:login";
         }
-        return "/users/login";
+        return "users/login";
     }
 
     @GetMapping("/registration")
     public String registrationPage(Model model) {
         model.addAttribute("user", new User());
-        return "/users/registration";
+        return "users/registration";
     }
 
     @PostMapping("/registration")
@@ -58,15 +58,15 @@ public class UserController {
         if (!bindingResult.hasErrors()) {
             userService.saveUser(user);
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.REGISTRATION_SUCCESS);
-            return "redirect:/login";
+            return "redirect:login";
         }
-        return "/users/registration";
+        return "users/registration";
     }
 
     @GetMapping("/profile")
     public String profilePage(Model model) {
         model.addAttribute("user", userService.getCurrentUser());
-        return "/users/profile";
+        return "users/profile";
     }
 
     @PostMapping("/profile")
@@ -76,13 +76,13 @@ public class UserController {
             BeanUtils.copyProperties(editedUser, currentUser, "id");
             userService.saveUser(currentUser);
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.PROFILE_UPDATE_SUCCESS);
-            return "redirect:/profile"; //prevents form reload
+            return "redirect:profile"; //prevents form reload
         }
-        return "/users/profile";
+        return "users/profile";
     }
 
     @RequestMapping("/friends")
     public String friendsPage() {
-        return "/users/friends";
+        return "users/friends";
     }
 }

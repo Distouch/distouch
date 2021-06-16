@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NotificationsController {
     @RequestMapping
     public String notificationsPage() {
-        return "/notifications";
+        return "notifications";
     }
 }

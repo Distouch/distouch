@@ -37,7 +37,7 @@ public class EventController {
     public String feed(Model model) {
         Iterable<Event> events = eventRepository.findAll();
         model.addAttribute("events", events);
-        return "/events/feed";
+        return "events/feed";
     }
 
     @GetMapping("/create")
@@ -47,7 +47,7 @@ public class EventController {
         event.setOrganizer(currentUser);
         event.setParticipants(Set.of(currentUser));
         model.addAttribute("event", event);
-        return "/events/create";
+        return "events/create";
     }
 
     @PostMapping(value = "/create", consumes = {"multipart/form-data"})
@@ -61,9 +61,9 @@ public class EventController {
         if (!bindingResult.hasErrors()) {
             eventRepository.save(event);
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.EVENT_CREATION_SUCCESS);
-            return "redirect:/events/view/" + event.getId();
+            return "redirect:events/view/" + event.getId();
         }
-        return "/events/create";
+        return "events/create";
     }
 
     @GetMapping("/view/{event}")
@@ -72,13 +72,13 @@ public class EventController {
         model.addAttribute("event", event);
         model.addAttribute("isOrganizer", (currentUser == event.getOrganizer()));
         model.addAttribute("showAll", (event.getParticipants().contains(currentUser)));
-        return "/events/view";
+        return "events/view";
     }
 
     @GetMapping("/edit/{event}")
     public String editEventPage(@PathVariable Event event, Model model) {
         model.addAttribute("event", event);
-        return "/events/edit";
+        return "events/edit";
     }
 
     @PostMapping("/edit/{event}")
@@ -88,14 +88,14 @@ public class EventController {
             BeanUtils.copyProperties(editedEvent, event, "id");
             eventRepository.save(event);
             redirectAttributes.addFlashAttribute("messageId", MESSAGE.EVENT_UPDATE_SUCCESS);
-            return "redirect:/events/view/" + event.getId();
+            return "redirect:events/view/" + event.getId();
         }
-        return "/events/edit";
+        return "events/edit";
     }
 
     @GetMapping("/calendar")
     public String calendarPage() {
-        return "/events/calendar";
+        return "events/calendar";
     }
 
     @GetMapping("/image/{event}")
